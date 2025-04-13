@@ -1,6 +1,8 @@
 package API.restful.TAREFAS.controller;
 
 import API.restful.TAREFAS.model.User;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.hibernate.sql.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import API.restful.TAREFAS.service.UserService;
@@ -8,9 +10,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tasks")
+@Tag(name = "TASKS CONTROLLER", description = "Operações relacionadas a tarefas")
 public class UserController {
 
     private final UserService userService;
@@ -46,6 +50,14 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).body(userCreated);
+    }
+
+    @PatchMapping("/taksUpdate/{id}")
+    public ResponseEntity<User> updateTask(@PathVariable Long id, @RequestBody User updatedTask) {
+
+        User updatedUser = userService.updateTask(id, updatedTask.getNameTask(), updatedTask.getDescriptionTask(),
+                updatedTask.getDone());
+        return ResponseEntity.ok(updatedUser);
     }
 
 
