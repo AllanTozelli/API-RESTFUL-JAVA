@@ -27,10 +27,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();  // Retorna todos os usuários do banco
     }
 
+
+    @Override
+    public List<User> findTasksByDoneStatus(boolean done) {
+        return userRepository.findByDone(done);
+    }
+
     @Override
     public User create(User userToCreate) {
         if (userRepository.existsById(userToCreate.getId())) {
-            throw new IllegalArgumentException("This Account number already exists.");
+            throw new IllegalArgumentException("Já existe uma conta com esse Id");
+
         }
         return userRepository.save(userToCreate);
     }

@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/tasks")
 public class UserController {
 
     private final UserService userService;
@@ -29,6 +29,13 @@ public class UserController {
         List<User> users = userService.findAll(); // Chama o métod findAll() do seu UserService para obter todos os usuários
         return ResponseEntity.ok(users); // Retorna a lista de usuários com o status HTTP 200 (OK)
     }
+
+    @GetMapping("/taksIsDone/{done}")
+    public ResponseEntity<List<User>> findTaksIsDone(@PathVariable boolean done){
+       List<User> users = userService.findTasksByDoneStatus(done);
+        return ResponseEntity.ok(users);
+    }
+
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User userToCreate){

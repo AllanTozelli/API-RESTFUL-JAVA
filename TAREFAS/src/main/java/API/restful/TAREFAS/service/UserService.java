@@ -9,7 +9,12 @@ public interface UserService {
 
     User findById(Long id);
 
+    List<User> findTasksByDoneStatus(boolean done);
+
     User create(User userToCreate);
 
     List<User> findAll();
+
+
+
 }
