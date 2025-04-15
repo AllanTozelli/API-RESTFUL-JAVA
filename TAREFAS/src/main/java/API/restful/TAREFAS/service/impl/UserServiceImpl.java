@@ -8,6 +8,7 @@ import API.restful.TAREFAS.service.UserService;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,4 +55,17 @@ public class UserServiceImpl implements UserService {
         userToCreate.setDatainclusao(new Date());
         return userRepository.save(userToCreate);
     }
+
+    @Override
+    public User deleteById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            userRepository.deleteById(id);
+            return user;
+        } else {
+            throw new RuntimeException("Usuário não encontrado com ID: " + id);
+        }
+    }
+
 }
