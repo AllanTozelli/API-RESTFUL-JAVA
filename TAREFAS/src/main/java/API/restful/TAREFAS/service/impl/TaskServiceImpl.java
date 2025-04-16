@@ -2,6 +2,8 @@ package API.restful.TAREFAS.service.impl;
 
 import API.restful.TAREFAS.model.Task;
 import API.restful.TAREFAS.repository.TaskRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import API.restful.TAREFAS.service.TaskService;
 
@@ -22,7 +24,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task findById(Long id) {
-        return taskRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Tarefa com ID " + id + " não encontrada"));
+
     }
 
     @Override
@@ -67,5 +71,6 @@ public class TaskServiceImpl implements TaskService {
             throw new RuntimeException("Usuário não encontrado com ID: " + id);
         }
     }
+
 
 }

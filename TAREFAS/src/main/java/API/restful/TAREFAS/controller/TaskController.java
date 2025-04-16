@@ -53,8 +53,8 @@ public class TaskController {
             description = "Endpoint para verificar o status das tarefas"
     )
 
-    @GetMapping("/IsDone/{done}")
-    public ResponseEntity<List<Task>> findTaksIsDone(@PathVariable boolean done){ // Verificação de Tasks Ativas e encerradas
+    @GetMapping("/isDone")
+    public ResponseEntity<List<Task>> findTaksIsDone(@RequestParam boolean done){ // Verificação de Tasks Ativas e encerradas
        List<Task> tasks = taskService.findTasksByDoneStatus(done);
         return ResponseEntity.ok(tasks);
     }
