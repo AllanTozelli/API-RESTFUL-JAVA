@@ -22,15 +22,15 @@ public class Task {
 
     private String descriptionTask;
 
-    @Schema(example = "16/04/2025 14:30", description = "Data no formato dd/MM/yyyy HH:mm")
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
+    //@Schema(example = "16/04/2025 14:30", description = "Data no formato dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
     private Date dataFinal;
 
     @JsonProperty(access = Access.READ_ONLY)
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private Date datainclusao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean done = false;
 
     public boolean getDone() {

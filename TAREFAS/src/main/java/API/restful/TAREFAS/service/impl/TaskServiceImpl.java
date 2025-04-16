@@ -30,13 +30,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(Long id, String nameTask, String descriptionTask, boolean done) {
+    public Task updateTask(Long id,  boolean done) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Tarefa não encontrada"));
 
         task.setDone(done);
-        task.setNameTask(nameTask);
-        task.setDescriptionTask(descriptionTask);
         return taskRepository.save(task);
     }
 
