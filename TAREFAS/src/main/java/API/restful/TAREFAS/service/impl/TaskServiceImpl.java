@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+// Responsavel pela Lógica de programação da aplicação
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -39,6 +40,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
+    //Implementação do Metodo da Interface, para retornar verdadeiro ou falso no "done"
     @Override
     public List<Task> findTasksByDoneStatus(boolean done) {
         return taskRepository.findByDone(done);

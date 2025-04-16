@@ -14,14 +14,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+// Responsavel pelos EndPoints da API
 @RestController
 @RequestMapping("/task")
 @Tag(name = "TASKS CONTROLLER", description = "Operações relacionadas a tarefas")
 public class TaskController {
 
+    // Instanciação da classe TaskService
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService) {
+   // Construtor da Classe TaskService
+   public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
@@ -30,7 +33,7 @@ public class TaskController {
             description = "Endpoint para consultar a tarefa pelo Id"
     )
     @GetMapping("/{id}")
-    public ResponseEntity<Task> findById(@PathVariable Long id){
+    public ResponseEntity<Task> findById(@PathVariable Long id){ // Verificar Task pelo Id passado na URL
         var user = taskService.findById(id);
         return  ResponseEntity.ok(user);
     }
@@ -51,7 +54,7 @@ public class TaskController {
     )
 
     @GetMapping("/IsDone/{done}")
-    public ResponseEntity<List<Task>> findTaksIsDone(@PathVariable boolean done){
+    public ResponseEntity<List<Task>> findTaksIsDone(@PathVariable boolean done){ // Verificação de Tasks Ativas e encerradas
        List<Task> tasks = taskService.findTasksByDoneStatus(done);
         return ResponseEntity.ok(tasks);
     }
@@ -75,14 +78,14 @@ public class TaskController {
     )
 
     @PostMapping("/create")
-    public ResponseEntity<Task> create(@RequestBody Task taskToCreate){
+    public ResponseEntity<Task> create(@RequestBody Task taskToCreate){ //Converter o Json em um objeto da classe Task
         var taskCreated = taskService.create(taskToCreate);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()// Captura a URL da requisição
                 .path("/{id}")
                 .buildAndExpand(taskCreated.getId())
-                .toUri();
+                .toUri(); // Transforma em URI
 
-        return ResponseEntity.created(location).body(taskCreated);
+        return ResponseEntity.created(location).body(taskCreated); // Retorno da Tarefa criada
     }
 
     @Operation(
@@ -102,10 +105,10 @@ public class TaskController {
             )
     )
     @PatchMapping("/UpdateStatus/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) { //Atl campo Done, pelo ID passado na URL
 
-        Task updatedTaks = taskService.updateTask(id, updatedTask.getDone());
-        return ResponseEntity.ok(updatedTaks);
+        Task updatedTasks = taskService.updateTask(id, updatedTask.getDone()); // Transformando o Json em Objeto que quero dar update
+        return ResponseEntity.ok(updatedTasks); // retornando o update
     }
 
 
@@ -114,7 +117,7 @@ public class TaskController {
             description = "Endpoint para deletar a tarefa"
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Task> delete(@PathVariable Long id){
+    public ResponseEntity<Task> delete(@PathVariable Long id){ //Delete por ID na URL
         var task = taskService.deleteById(id);
         return  ResponseEntity.ok(task);
     }
