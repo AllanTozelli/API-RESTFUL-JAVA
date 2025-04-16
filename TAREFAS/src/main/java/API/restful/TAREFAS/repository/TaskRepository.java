@@ -1,16 +1,17 @@
 package API.restful.TAREFAS.repository;
 
-import API.restful.TAREFAS.model.User;
+import API.restful.TAREFAS.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
     boolean existsById(int id);
 
-    List<User> findByDone(boolean done);
+    List<Task> findByDone(boolean done);
+
 
 }

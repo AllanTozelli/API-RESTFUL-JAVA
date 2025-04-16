@@ -1,15 +1,17 @@
 package API.restful.TAREFAS.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-@Entity(name = "tb_task_1")
-public class User {
+@Entity(name = "TBI_TASK")
+public class Task {
 
     @JsonProperty(access = Access.READ_ONLY)
     @Id
@@ -20,12 +22,16 @@ public class User {
 
     private String descriptionTask;
 
+    @Schema(example = "16/04/2025 14:30", description = "Data no formato dd/MM/yyyy HH:mm")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
+    private Date dataFinal;
+
     @JsonProperty(access = Access.READ_ONLY)
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private Date datainclusao;
 
-
-    private boolean done;
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private boolean done = false;
 
     public boolean getDone() {
         return done;
@@ -66,5 +72,13 @@ public class User {
 
     public void setDatainclusao(Date datainclusao) {
         this.datainclusao = new Date();
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
     }
 }
